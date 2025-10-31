@@ -1,0 +1,30 @@
+{% load static %}
+<head>
+<title>Blogs</title>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<header>
+<div class="nav-left">
+<h1><a href="{% url 'home' %}">Blog Posts</a></h1>
+</div>
+<div class="nav-right">
+    <h1><a href ="{% url 'post_create' %}">Create Post</a></h1>
+</header>
+<div>
+{% if user.is_authenticated %}
+    <h2>Hii, {{ user.username }}</h2>
+    <form action="{% url 'logout' %}" method="post">
+ {% csrf_token %}
+ <button type="submit">Log Out</button>
+ </form>
+{% else %}
+<p>you are not logged in</p>
+<a href="{% url 'login' %}">LOG IN</a>|
+<a href ="{% url 'signup' %}">SIGN UP</a>
+{% endif %}
+{% block content %}
+{% endblock content %}
+</div>
+</body>
